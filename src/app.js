@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import config from "./config/config.js";
 import { addLogger } from "./utils/logger.js";
+import errorHandler from "./middlewares/error.js";
 
 import usersRouter from "./routes/users.router.js";
 import petsRouter from "./routes/pets.router.js";
@@ -34,5 +35,7 @@ app.get("/loggerTest", (req, res) => {
 	req.logger.fatal("Mensaje Fatal");
 	res.send("Logs generados. Revisa tu consola y el archivo errors.log");
 });
+
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
