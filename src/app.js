@@ -13,6 +13,16 @@ import mocksRouter from "./routes/mocks.router.js";
 
 const app = express();
 
+process.on("exit", (code) => {
+	console.log("El proceso ha finalizado con código:", code);
+});
+process.on("uncaughtException", (exception) => {
+	console.log("Ha ocurrido una excepción no controlada:", exception);
+});
+process.on("message", (message) => {
+	console.log("Mensaje recibido del proceso padre:", message);
+});
+
 const PORT = config.port;
 const connection = mongoose.connect(config.mongo_url);
 

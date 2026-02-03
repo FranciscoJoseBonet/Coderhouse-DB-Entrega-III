@@ -1,3 +1,4 @@
+import { fork } from "child_process";
 import { generateMockPets, generateMockUsers } from "../utils/mocking.js";
 import User from "../dao/models/User.js";
 import Pet from "../dao/models/Pet.js";
@@ -42,4 +43,16 @@ export const generateData = async (req, res) => {
 		console.log(error);
 		res.status(500).send({ status: "error", error: error.message });
 	}
+};
+
+export const getSum = (req, res) => {
+	const child = fork("./src/utils/calculation.js");
+
+	child.send("start");
+	child.on("message", (result) => {
+		res.send({
+			status: "success",
+			payload: `El resultado de la suma compleja es: ${result}`,
+		});
+	});
 };

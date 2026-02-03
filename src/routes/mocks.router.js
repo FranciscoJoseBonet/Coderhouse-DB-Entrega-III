@@ -3,6 +3,7 @@ import {
 	getMockingPets,
 	getMockingUsers,
 	generateData,
+	getSum,
 } from "../controllers/mocks.controller.js";
 
 const router = Router();
@@ -10,5 +11,6 @@ const router = Router();
 router.get("/mockingpets", getMockingPets);
 router.get("/mockingusers", getMockingUsers);
 router.post("/generateData", generateData);
+router.get("/test-calculation", getSum);
 
 export default router;
