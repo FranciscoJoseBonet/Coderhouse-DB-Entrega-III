@@ -1,0 +1,89 @@
+paths:
+  /api/users:
+    get:
+      summary: Obtiene la lista de todos los usuarios.
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Lista de usuarios obtenida exitosamente.
+        "500":
+          description: Error interno del servidor.
+
+  /api/users/{uid}:
+    get:
+      summary: Obtiene un usuario por su ID.
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario a buscar.
+      responses:
+        "200":
+          description: Usuario encontrado.
+        "404":
+          description: Usuario no encontrado.
+    put:
+      summary: Actualiza los datos de un usuario.
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario a actualizar.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+      responses:
+        "200":
+          description: Usuario actualizado con éxito.
+    delete:
+      summary: Elimina un usuario del sistema.
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario a eliminar.
+      responses:
+        "200":
+          description: Usuario eliminado con éxito.
+
+  /api/users/{uid}/documents:
+    post:
+      summary: Sube uno o múltiples documentos para un usuario.
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                documents:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        "200":
+          description: Documentos subidos y registrados con éxito.

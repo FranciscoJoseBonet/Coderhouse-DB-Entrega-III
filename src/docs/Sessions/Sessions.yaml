@@ -1,0 +1,59 @@
+paths:
+  /api/sessions/register:
+    post:
+      summary: Registra un nuevo usuario.
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Usuario registrado con éxito.
+        "400":
+          description: Valores incompletos o el usuario ya existe.
+
+  /api/sessions/login:
+    post:
+      summary: Inicia sesión de usuario.
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@correo.com"
+                password:
+                  type: string
+                  example: "1234"
+      responses:
+        "200":
+          description: Login exitoso.
+        "401":
+          description: Credenciales incorrectas.
+
+  /api/sessions/logout:
+    get:
+      summary: Cierra la sesión del usuario actual.
+      tags:
+        - Sessions
+      responses:
+        "200":
+          description: Sesión cerrada exitosamente y last_connection actualizada.

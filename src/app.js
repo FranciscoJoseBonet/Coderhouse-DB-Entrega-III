@@ -11,6 +11,14 @@ import adoptionsRouter from "./routes/adoption.router.js";
 import sessionsRouter from "./routes/sessions.router.js";
 import mocksRouter from "./routes/mocks.router.js";
 
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
 process.on("exit", (code) => {
@@ -23,8 +31,20 @@ process.on("message", (message) => {
 	console.log("Mensaje recibido del proceso padre:", message);
 });
 
+const swaggerOptions = {
+	definition: {
+		openapi: "3.0.1",
+		info: {
+			title: "Documentación de la API Coderhouse backend III",
+			description: "API para la gestión de adopciones de mascotas, usuarios y sesiones.",
+		},
+	},
+	apis: [`${__dirname}/docs/**/*.yaml`],
+};
+
 const PORT = config.port;
 const connection = mongoose.connect(config.mongo_url);
+const specs = swaggerJSDoc(swaggerOptions);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -35,6 +55,7 @@ app.use("/api/pets", petsRouter);
 app.use("/api/adoptions", adoptionsRouter);
 app.use("/api/sessions", sessionsRouter);
 app.use("/api/mocks", mocksRouter);
+app.use("/api/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 app.get("/loggerTest", (req, res) => {
 	req.logger.debug("Mensaje de Debug");
@@ -49,3 +70,5 @@ app.get("/loggerTest", (req, res) => {
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+export default app;

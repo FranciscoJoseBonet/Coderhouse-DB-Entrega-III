@@ -1,0 +1,26 @@
+paths:
+  /api/adoptions:
+    get:
+      summary: Obtiene todas las adopciones.
+      tags:
+        - Adoptions
+      responses:
+        "200":
+          description: Lista de adopciones.
+  /api/adoptions/{uid}/{pid}:
+    post:
+      summary: Crea una nueva adopción vinculando un usuario y una mascota.
+      tags:
+        - Adoptions
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario
+        - name: pid
+          in: path
+          required: true
+          description: ID de la mascota
+      responses:
+        "200":
+          description: Adopción completada.
