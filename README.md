@@ -1,4 +1,3 @@
-````markdown
 # 🐾 AdoptMe API - Proyecto Final Backend III
 
 Backend profesional para la gestión de adopciones de mascotas, desarrollado con **Node.js**, **Express** y **MongoDB**. Este proyecto implementa una arquitectura robusta, documentación automatizada y una suite de tests funcionales.
@@ -34,7 +33,6 @@ Este repositorio utiliza **GitHub Actions** para automatizar el ciclo de vida de
    ```bash
    docker pull franboo/adoptme-api:latest
    ```
-````
 
 2. Corre el contenedor pasando tus variables de entorno:
 
@@ -53,6 +51,3 @@ La API está totalmente documentada con **Swagger**. Puedes explorar los endpoin
 
 Desarrollado por **Fran Bonet** - Ingeniería UNL | Founder de Reboot.
 
-```
-
-```
